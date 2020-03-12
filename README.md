@@ -1,11 +1,12 @@
 ## Mapeando... 
 
-Me veio a cabeça como eu faria para detectar em um range de IP´s , quais destes seriam estações ou servidores windows. Alguém ouviu falar do SMBGhost?! ;D  Então, depois de quebrar a cabeça de como eu faria para filtrar toda a saída do nmap para só me mostrar o IP e o "fingerprint" do sistema, se usava CUT, TAIL, HEAD, etc., acabei chegando em uma solução que funcionou para mim, que foi: 
+Me veio a cabeça como eu faria para detectar em um range de IP´s , quais destes seriam estações ou servidores windows. Alguém pensou SMBGhost?! ;D  Então, depois de quebrar a cabeça de como eu faria para filtrar toda a saída do nmap para só me mostrar o IP e o "fingerprint" do sistema, se usava CUT, TAIL, HEAD, AWK, etc., acabei chegando em uma solução que funcionou para mim, que foi: 
 
-*Vou colocar um marcador na informação que eu quero e depois faço um grep pelo marcador* e voilá. 
+*Vou colocar um marcador ("=>") na informação que eu quero e depois faço um grep pelo marcador* e voilá. 
 
-=> nmap  -O -T5 -Pn -n XX.XX.XX.XX/XX | sed 's/Nmap scan report for/SERVER =>/' | sed 's/OS CPE:/OS CPE =>/' | sed 's/Aggressive OS guesses:/OS =>/' | grep '=>'
+  nmap  -O -T5 -Pn -n XX.XX.XX.XX/XX | sed -e 's/Nmap scan report for/SERVER =>/' -e 's/OS CPE:/OS CPE =>/' -e sed 's/Aggressive OS guesses:/OS =>/' | grep '=>'
 
+Talvez hajam outras formas muito mais elegantes e até mais rápidas, mas para mim, deu o resultado que eu queria ;D
 
 ### Sem mais por enquanto
 
